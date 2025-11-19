@@ -1,7 +1,9 @@
 import SwiftUI
 
 struct ContentView: View {
-
+    
+    @State var value = 30.0
+    @State var alertIsVisible = false
     var body: some View {
         ZStack{
             Color("BackgroundColor").ignoresSafeArea()
@@ -12,7 +14,7 @@ struct ContentView: View {
                     .kerning(-1)
                     .fontWeight(.bold)
                 Slider(
-                    value: .constant(90),
+                    value: $value,
                     in: 1...100,
                     step: 1
                 ) {
@@ -22,8 +24,9 @@ struct ContentView: View {
                 } maximumValueLabel: {
                     Text("100").fontWeight(.bold)
                 }
+                Text("\(value)")
                 Button("TRY"){
-                    print("try tapped")
+                    alertIsVisible = true
                 }.padding()
                     .font(.title3)
                     .foregroundColor(.white)
@@ -33,7 +36,11 @@ struct ContentView: View {
                 
             }
             .padding()
-        }
+        }.alert("Hello",
+                isPresented: $alertIsVisible,
+                actions: {Button("Got it"){print("TODO got it")}},
+                message: {Text("This is my first alert")}
+        )
         
     }
 }
