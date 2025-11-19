@@ -3,14 +3,16 @@ import SwiftUI
 struct ContentView: View {
 
     var body: some View {
-        VStack {
-            Text("🎯🎯🎯").font(.largeTitle)
-            Text("89")
-                .font(.largeTitle)
-                .kerning(-1)
-                .fontWeight(.bold)
-            Slider(
-                value: .constant(90),
+        ZStack{
+            Color("BackgroundColor").ignoresSafeArea()
+            VStack {
+                Text("🎯🎯🎯").font(.largeTitle)
+                Text("89")
+                    .font(.largeTitle)
+                    .kerning(-1)
+                    .fontWeight(.bold)
+                Slider(
+                    value: .constant(90),
                     in: 1...100,
                     step: 1
                 ) {
@@ -20,16 +22,18 @@ struct ContentView: View {
                 } maximumValueLabel: {
                     Text("100").fontWeight(.bold)
                 }
-            Button("TRY"){
-                print("try tapped")
-            }.padding()
-                .font(.title3)
-                .foregroundColor(.white)
-                .background(Color.blue)
-                .cornerRadius(21)
+                Button("TRY"){
+                    print("try tapped")
+                }.padding()
+                    .font(.title3)
+                    .foregroundColor(.white)
+                    .background(.accent)
+                    .cornerRadius(21)
                 
-            
-        }.padding()
+                
+            }
+            .padding()
+        }
         
     }
 }
