@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var value = 30.0
+    @State var sliderValue = 30.0
     @State var alertIsVisible = false
     var body: some View {
         ZStack{
@@ -13,18 +13,8 @@ struct ContentView: View {
                     .font(.largeTitle)
                     .kerning(-1)
                     .fontWeight(.bold)
-                Slider(
-                    value: $value,
-                    in: 1...100,
-                    step: 1
-                ) {
-                    Text("Slider")
-                } minimumValueLabel: {
-                    Text("1").fontWeight(.bold)
-                } maximumValueLabel: {
-                    Text("100").fontWeight(.bold)
-                }
-                Text("\(value)")
+                SliderView(value: $sliderValue, minimumValue: 1, maximumValue: 100)
+                Text("\(sliderValue)")
                 Button("TRY"){
                     alertIsVisible = true
                 }.padding()
@@ -42,6 +32,27 @@ struct ContentView: View {
                 message: {Text("This is my first alert")}
         )
         
+    }
+}
+
+struct SliderView: View{
+    
+    @Binding var value:Double
+    let minimumValue:Int
+    let maximumValue:Int
+    
+    var body : some View{
+        Slider(
+            value: $value,
+            in: Double(minimumValue)...Double(maximumValue),
+            step: 1
+        ) {
+            Text("Slider")
+        } minimumValueLabel: {
+            Text("\(minimumValue)").fontWeight(.bold)
+        } maximumValueLabel: {
+            Text("\(maximumValue)").fontWeight(.bold)
+        }
     }
 }
 
