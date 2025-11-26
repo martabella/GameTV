@@ -11,6 +11,7 @@ struct RoundedImageView: View {
                     .stroke(lineWidth: 2)
                     .frame(width: 56, height: 56)
             }
+            .foregroundColor(.primary)
     }
 }
 

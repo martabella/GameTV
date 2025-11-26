@@ -9,7 +9,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
-            BackgroundView()
+            BackgroundView(game: $game)
             VStack {
                 Text("🎯🎯🎯").font(.largeTitle)
                 Text("\(game.target)")
@@ -33,7 +33,7 @@ struct ContentView: View {
         }.alert("Congratulations 🎉🎉🎉",
                 isPresented: $alertIsVisible,
                 actions: {Button("Got it"){
-            game.restart()
+            game.restartRound()
             sliderValue = Double(Game.maxValue+Game.minValue)/2
         }},
                 message: {Text("Your points are \(game.points)")}
