@@ -3,8 +3,10 @@ import SwiftUI
 struct MarksView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(GameStore.self) private var gameStore:GameStore
     
     var body: some View {
+        
         VStack {
             HStack {
                 Text("MARKS")
@@ -16,7 +18,7 @@ struct MarksView: View {
                 }
             }
             List{
-                ForEach(Array(Game.defaultMarks.indices), id: \.self) { index in
+                ForEach(Array(gameStore.game.marks.indices), id: \.self) { index in
                     HStack{
                         Text("\(index+1)")
                             .kerning(1)
@@ -35,5 +37,5 @@ struct MarksView: View {
 }
 
 #Preview {
-    MarksView()
+    MarksView().environment(GameStore())
 }

@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct GameTVApp: App {
+    @State var vm = GameStore()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(vm)
         }
     }
 }

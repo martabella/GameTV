@@ -7,6 +7,7 @@ struct Game{
     private(set) var points = 0
     private(set) var score = 0
     private(set) var round = 0
+    private(set) var marks = [Mark]()
     
     
     
@@ -14,6 +15,7 @@ struct Game{
         points = 100 - Int(abs(Double(target) - sliderValue))
         score+=points
         round+=1
+        marks.append(Mark(value: points, date: Date()))
     }
     
     mutating func restartRound(){

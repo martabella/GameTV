@@ -5,21 +5,21 @@ struct ContentView: View {
     @State var sliderValue = Double(Game.maxValue+Game.minValue)/2
     @State var alertIsVisible = false
     
-    @State var game = Game()
+    @Environment(GameStore.self) private var gameStore:GameStore
     
     var body: some View {
         ZStack{
-            BackgroundView(game: $game)
+            BackgroundView()
             VStack {
                 Text("🎯🎯🎯").font(.largeTitle)
-                Text("\(game.target)")
+                Text("\(gameStore.game.target)")
                     .font(.largeTitle)
                     .kerning(-1)
                     .fontWeight(.bold)
                 SliderView(value: $sliderValue, minimumValue: Game.minValue, maximumValue: Game.maxValue)
                 Text("\(sliderValue)")
                 Button("TRY"){
-                    game.calculatePoints(sliderValue: sliderValue)
+                    gameStore.calculatePointsIntent(value: sliderValue)
                     alertIsVisible = true
                 }.padding()
                     .font(.title3)
@@ -33,10 +33,10 @@ struct ContentView: View {
         }.alert("Congratulations 🎉🎉🎉",
                 isPresented: $alertIsVisible,
                 actions: {Button("Got it"){
-            game.restartRound()
+            gameStore.restarRoundIntent()
             sliderValue = Double(Game.maxValue+Game.minValue)/2
         }},
-                message: {Text("Your points are \(game.points)")}
+                message: {Text("Your points are \(gameStore.game.points)")}
         )
         
     }
@@ -64,5 +64,5 @@ struct SliderView: View{
 }
 
 #Preview {
-    ContentView()
+    ContentView().environment(GameStore())
 }
